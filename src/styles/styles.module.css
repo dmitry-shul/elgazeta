@@ -1,0 +1,10 @@
+.main {
+  width: 100%;
+  padding: 60px 0;
+}
+
+.imageBlock {
+  width: 100%;
+  /*background-image: url("./../assets/images/imageBackground.png");*/
+  height: 100px;
+}
