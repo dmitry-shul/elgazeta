@@ -2,6 +2,7 @@ import styles from "./Contacts.module.css"
 import Head from "next/head"
 
 const Contacts = () => {
+
   return (
     <>
       <Head>

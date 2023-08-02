@@ -12,10 +12,10 @@ const Header = () => {
 
       <nav className={styles.nav}>
         <ul className={styles.ul}>
-          <CustomLink href="/" prefetch={false}>Главная</CustomLink>
-          <CustomLink href={{}} prefetch={false}>Наша редакция</CustomLink>
-          <CustomLink href={{}} prefetch={false}>Выпускники</CustomLink>
-          <CustomLink href="/contacts" prefetch={false}>Контакты</CustomLink>
+          <CustomLink href="/">Главная</CustomLink>
+          <CustomLink href={{}}>Наша редакция</CustomLink>
+          <CustomLink href={{}}>Выпускники</CustomLink>
+          <CustomLink href="/contacts">Контакты</CustomLink>
         </ul>
       </nav>
     </div>
@@ -30,6 +30,12 @@ const CustomLink = ({href, children, ...props}) => {
   const {pathname} = useRouter()
 
   return (
-    <li style={pathname === href ? {borderBottom: "2px solid #474747"} : {}}><Link href={href}>{children}</Link></li>
+    <li style={pathname === href ? {borderBottom: "2px solid #474747"} : {}}>
+      <Link 
+        style={{width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "center"}} 
+        href={href} 
+        prefetch={false}
+      >{children}</Link>
+    </li>
   )
 }
