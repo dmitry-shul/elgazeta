@@ -12,10 +12,10 @@ const Header = () => {
 
       <nav className={styles.nav}>
         <ul className={styles.ul}>
-          <CustomLink href="/">Главная</CustomLink>
-          <CustomLink href={{}}>Наша редакция</CustomLink>
-          <CustomLink href={{}}>Выпускники</CustomLink>
-          <CustomLink href="/contacts">Контакты</CustomLink>
+          <CustomLink href="/" prefetch={false}>Главная</CustomLink>
+          <CustomLink href={{}} prefetch={false}>Наша редакция</CustomLink>
+          <CustomLink href={{}} prefetch={false}>Выпускники</CustomLink>
+          <CustomLink href="/contacts" prefetch={false}>Контакты</CustomLink>
         </ul>
       </nav>
     </div>
