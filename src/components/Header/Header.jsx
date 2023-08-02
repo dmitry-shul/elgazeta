@@ -1,6 +1,9 @@
+import Link from "next/link"
 import styles from "./Header.module.css"
+import { useRouter } from "next/router"
 
 const Header = () => {
+
   return (
     <div className={styles.header}>
       <div className={styles.title}>
@@ -9,10 +12,10 @@ const Header = () => {
 
       <nav className={styles.nav}>
         <ul className={styles.ul}>
-          <li>Главная</li>
-          <li>Наша редакция</li>
-          <li>Выпускники</li>
-          <li>Контакты</li>
+          <CustomLink href="/">Главная</CustomLink>
+          <CustomLink href={{}}>Наша редакция</CustomLink>
+          <CustomLink href={{}}>Выпускники</CustomLink>
+          <CustomLink href="/contacts">Контакты</CustomLink>
         </ul>
       </nav>
     </div>
@@ -20,3 +23,13 @@ const Header = () => {
 }
 
 export default Header
+
+
+
+const CustomLink = ({href, children, ...props}) => {
+  const {pathname} = useRouter()
+
+  return (
+    <li style={pathname === href ? {borderBottom: "2px solid #474747"} : {}}><Link href={href}>{children}</Link></li>
+  )
+}

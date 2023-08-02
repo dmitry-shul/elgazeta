@@ -50,7 +50,7 @@
 .archiveBtn {
   width: 100%;
   height: 82px;
-  background: #6555C2;
+  background: #7b6bd3;
   color: white;
   border-radius: 2px;
   padding: 12px 14px;
@@ -75,20 +75,31 @@
 /*--------------------------------------------------------*/
 
 .rubrics {
-  margin-top: 60px;
+  margin-top: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
+
 
 .rubric {
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 2px;
   padding: 26px 34px;
+  margin: 16px 0;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.rubric:hover {
+  padding: 20px 28px;
 }
 
 .rubric__border {
   width: 100%;
   height: 100%;
-  border: 2px solid #ffffffd2;
+  border: 3px solid #ffffffd2;
   display: flex;
   align-items: flex-end;
   justify-content: center;

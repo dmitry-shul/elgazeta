@@ -1,6 +1,5 @@
 import styles from "@/styles/styles.module.css"
 import Head from "next/head"
-import Image from "next/image"
 
 export default function Main() {
   return (
@@ -46,7 +45,7 @@ const RubricsList = () => {
     <div className={styles.rubrics}>
       {
         rubricsArray.map(item =>
-          <Rubric item={item} />   
+          <Rubric key={item.id} item={item} />   
         )
       }
     </div>
@@ -73,7 +72,7 @@ const Rubric = ({item}) => {
 const rubricsArray = [
   {id: 1, link: '/assets/images/1rub.jpg', width: "564px", height: "336px", text: "В ЦЕНТРЕ ВНИМАНИЯ"},
   {id: 2, link: '/assets/images/2rub.jpg', width: "362px", height: "336px", text: "ХОББИ-ТЫ"},
-  {id: 3, link: '/assets/images/3rub.jpg', width: "374px", height: "312px", text: "ДЕНЬ В КАЛЕНДАРЕ"},
+  {id: 3, link: '/assets/images/3rub.webp', width: "374px", height: "312px", text: "ДЕНЬ В КАЛЕНДАРЕ"},
   {id: 4, link: '/assets/images/4rub.jpg', width: "558px", height: "312px", text: "РОВЕСНИК"},
   {id: 5, link: '/assets/images/5rub.jpg', width: "600px", height: "304px", text: "В МИРЕ ПРОФЕССИЙ"},
   {id: 6, link: '/assets/images/6rub.jpg', width: "316px", height: "304px", text: "БЛОКНОТ"},
