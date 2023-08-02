@@ -2,6 +2,7 @@ import styles from "@/styles/styles.module.css"
 import Head from "next/head"
 
 export default function Main() {
+  
   return (
     <>
       <Head>
@@ -30,11 +31,13 @@ export default function Main() {
 
 const ArchiveButton = () => {
   return (
-    <div className={styles.archiveBtn}>
-      <div className={styles.archiveBtn__border}>
-        АРХИВ 2019 - 2022
+    <a href="https://elgazeta.wixsite.com/molo" target="_blank" rel="noreferrer">
+      <div className={styles.archiveBtn}>
+        <div className={styles.archiveBtn__border}>
+          АРХИВ 2019 - 2022
+        </div>
       </div>
-    </div>
+    </a>
   )
 }
 

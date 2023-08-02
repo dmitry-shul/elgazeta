@@ -1,9 +1,14 @@
 import styles from "./Contacts.module.css"
+import Head from "next/head"
 
 const Contacts = () => {
   return (
     <>
-      f3333
+      <Head>
+        <title>Контакты - Маладзік</title>
+      </Head>
+
+
     </>
   )
 }
