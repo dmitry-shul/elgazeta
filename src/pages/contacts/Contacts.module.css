@@ -27,3 +27,20 @@
 .info a {
   color: #000;
 }
+
+/*--------------------------------------------------------*/
+
+@media screen and (max-width: 450px) {
+  .contacts h1 {
+    padding: 20px 0;
+  }
+
+  .info {
+    padding: 20px 10px 0 10px;
+  }
+
+	.info span {
+    font-size: 18px;
+    margin: 10px 0;
+  }
+}

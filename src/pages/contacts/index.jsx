@@ -11,7 +11,7 @@ const Contacts = () => {
 
       <div className="container">
         <div className={styles.contacts}>
-          <h1>КОНТАКТЫ</h1>
+          <h1>Контакты</h1>
 
           <div className={styles.info}>
             <span><b>Молодечненский центр творчества детей и молодежи "Маладик"</b></span>

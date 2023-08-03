@@ -39,12 +39,27 @@
   display: none;
 }
 
-/*.menu__ul {
+.menu__ul {
+  position: fixed;
+  top: 0;
+  right: -100vw;
+  width: 100%;
+  height: calc(100vh + 200px);
   display: flex;
   flex-direction: column;
-  background: white;
-  margin: 10px 0;
-  display: none;
+  background: #ffffff;
+  padding: 10px 0;
+  align-items: center;
+  transition: 0.4s;
+}
+
+.menu__ul div {
+  width: 60px;
+  font-size: 36px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu__ul li {
@@ -52,7 +67,7 @@
   margin: 0 auto;
   font-size: 22px;
   padding: 6px 0;
-}*/
+}
 
 .ul {
   display: flex;
