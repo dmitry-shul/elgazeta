@@ -1,5 +1,6 @@
 import styles from "@/styles/styles.module.css"
 import Head from "next/head"
+import { useRouter } from "next/router"
 
 export default function Main() {
   
@@ -44,11 +45,13 @@ const ArchiveButton = () => {
 
 
 const RubricsList = () => {
+  const {push} = useRouter()
+
   return (
     <div className={styles.rubrics}>
       {
         rubricsArray.map(item =>
-          <Rubric key={item.id} item={item} />   
+          <Rubric onClick={() => push(`/${item.text.toLowerCase().split(" ").join("-")}`)} key={item.id} item={item} />   
         )
       }
     </div>
@@ -57,12 +60,12 @@ const RubricsList = () => {
 
 
 
-const Rubric = ({item}) => {
+const Rubric = ({item, ...props}) => {
 
   const {link, width, height, text, positionX, positionY} = item
 
   return (
-    <div className={styles.rubric} style={{backgroundImage: `url(${link})`, width, height, backgroundPositionX: positionX, backgroundPositionY: positionY}}>
+    <div {...props} className={styles.rubric} style={{backgroundImage: `url(${link})`, width, height, backgroundPositionX: positionX, backgroundPositionY: positionY}}>
       <div className={styles.rubric__border}>
         <p>{text}</p>
       </div>

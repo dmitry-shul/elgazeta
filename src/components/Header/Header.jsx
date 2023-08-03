@@ -16,7 +16,7 @@ const Header = () => {
     <>
       <div className={styles.header}>
         <div className={styles.title}>
-          <h1>Маладзік</h1>
+          <h1><Link href="/">Маладзік</Link></h1>
         </div>
 
         <nav className={styles.nav}>
