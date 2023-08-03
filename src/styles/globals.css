@@ -69,6 +69,7 @@ button {
 .layout {
   width: 100%;
   min-height: calc(100vh - 140px - 80px);
+  /*border-top: 1px solid #EAEAEA;*/
 }
 
 .container {
