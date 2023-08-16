@@ -3,7 +3,7 @@ import styles from "./Rubric.module.css"
 import Head from "next/head"
 
 const Rubric = () => {
-  const {query} = useRouter()
+  const {query, push} = useRouter()
   const title = getTitle(query)
 
   return (
@@ -17,7 +17,7 @@ const Rubric = () => {
           <h1>{title}</h1>
 
           <div className={styles.postList}>
-            <Post />
+            <Post onClick={() => push(`/[rubric]/${"post"}`)} />
             <Post />
             <Post />
             <Post />
@@ -43,6 +43,8 @@ const Post = () => {
       ></div>
       
       <div className={styles.info}>
+        <div style={{marginBottom: "10px"}}>16.08.2023</div>
+
         <h4>ЮНЫЕ ЖУРНАЛИСТЫ ПРИНЯЛИ УЧАСТИЕ В ПЕРВОМ НАЦИОНАЛЬНОМ ДЕТСКОМ МЕДИАФОРУМЕ</h4>
 
         <p>
@@ -61,7 +63,7 @@ const Post = () => {
 
 
 const getTitle = (query) => {
-  let a = query.rubric.split("-").join(" ")
+  let a = query?.rubric?.split("-").join(" ")
   let b = a[0].toUpperCase() + a.slice(1)
   return b;
 }
