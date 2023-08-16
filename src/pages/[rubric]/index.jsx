@@ -3,7 +3,7 @@ import styles from "./Rubric.module.css"
 import Head from "next/head"
 
 const Rubric = () => {
-  const {query, push} = useRouter()
+  const {query, push, asPath} = useRouter()
   const title = getTitle(query)
 
   return (
@@ -17,7 +17,7 @@ const Rubric = () => {
           <h1>{title}</h1>
 
           <div className={styles.postList}>
-            <Post onClick={() => push(`/[rubric]/${"post"}`)} />
+            <Post onClick={() => push(`${asPath}/${"post"}`)} />
             <Post />
             <Post />
             <Post />
@@ -34,9 +34,9 @@ export default Rubric
 
 
 
-const Post = () => {
+const Post = ({...props}) => {
   return (
-    <div className={styles.post}>
+    <div {...props} className={styles.post}>
       <div 
         className={styles.avatar}
         style={{backgroundImage: "url('https://elgazeta.weebly.com/uploads/1/4/4/3/144357286/1693732819_orig.jpg')"}}
