@@ -23,6 +23,11 @@
   padding: 40px 0;
   border-bottom: 1px solid #EAEAEA;
   display: flex;
+  cursor: pointer;
+}
+
+.post:hover .info h4 {
+  text-decoration: underline;
 }
 
 .info {
@@ -32,7 +37,7 @@
 }
 
 .info h4 {
-  font-size: 26px;
+  font-size: 24px;
 }
 
 .info p {

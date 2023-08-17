@@ -1,7 +1,6 @@
 import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
-import Image from "next/image"
 
 const Post = () => {
   const {query} = useRouter()
