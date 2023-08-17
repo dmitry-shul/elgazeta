@@ -17,7 +17,7 @@ const Rubric = () => {
           <h1>{title}</h1>
 
           <div className={styles.postList}>
-            <Post onClick={() => push(`${asPath}/${"post"}`)} />
+            <Post onClick={() => push(`${asPath}/${"юные-журналисты-приняли-участие-в-первом-национальном-детском-медиафоруме"}`)} />
             <Post />
             <Post />
             <Post />

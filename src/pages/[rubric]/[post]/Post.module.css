@@ -1,0 +1,13 @@
+.postBlock {
+  width: 100%;
+}
+  
+.postBlock h1 {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  border-bottom: 2px solid #EAEAEA;
+  text-align: center;
+}
