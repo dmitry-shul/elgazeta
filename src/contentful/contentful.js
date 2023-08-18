@@ -39,7 +39,7 @@ export const getData = async (type) => {
       date: item.fields.date.split("-").reverse().join("."),
       comments: Object.values(item.fields.comments),
       image: {url: item.fields.image.fields.file.url, 
-        discription: item.fields.image.fields.discription, 
+        description: item.fields.image.fields.description, 
         width: item.fields.image.fields.file.details.image.width, 
         height: item.fields.image.fields.file.details.image.height},
     }

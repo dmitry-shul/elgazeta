@@ -65,6 +65,14 @@
   font-size: 16px;
 }
 
+
+.styleTest1 p,
+.styleTest1 ol,
+.styleTest1 div,
+.styleTest1 blockquote {
+  margin: 0;
+}
+
 /*-----------------------------------------------------*/
 
 @media screen and (max-width: 880px) {
