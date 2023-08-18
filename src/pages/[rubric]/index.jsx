@@ -1,10 +1,13 @@
 import { useRouter } from "next/router"
 import styles from "./Rubric.module.css"
 import Head from "next/head"
+import { client } from "@/contentful/contentful"
 
-const Rubric = () => {
+const Rubric = ({posts}) => {
   const {query, push, asPath} = useRouter()
   const title = getTitle(query)
+
+  console.log(posts)
 
   return (
     <>
@@ -17,12 +20,11 @@ const Rubric = () => {
           <h1>{title}</h1>
 
           <div className={styles.postList}>
-            <Post onClick={() => push(`${asPath}/${"юные-журналисты-приняли-участие-в-первом-национальном-детском-медиафоруме"}`)} />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            {
+              /*posts?.map(post => 
+                <Post post={post} key={post} onClick={() => push(`${asPath}/${"юные-журналисты-приняли-участие-в-первом-национальном-детском-медиафоруме"}`)} />
+              )*/
+            }
           </div>
         </div>
       </div>
@@ -66,4 +68,35 @@ const getTitle = (query) => {
   let a = query?.rubric?.split("-").join(" ")
   let b = a[0].toUpperCase() + a.slice(1)
   return b;
+}
+
+
+
+export async function getStaticProps() {
+  const data = await client.getEntries({
+    content_type: "rubric_1",
+  })
+
+  const newData = data.items.map(item => {
+    return {
+      ...item.fields,
+      text: documentToHtmlString(item?.fields?.text, options),
+      previewText: `${documentToHtmlString(item?.fields?.text).split("").slice(0, 180).join("")}...`,
+      id: item.sys?.id,
+      date: item.fields.date.split("-").reverse().join("."),
+      comments: Object.values(item.fields.comments),
+      image: {url: item.fields.image.fields.file.url, 
+        discription: item.fields.image.fields.discription, 
+        width: item.fields.image.fields.file.details.image.width, 
+        height: item.fields.image.fields.file.details.image.height},
+    }
+  })
+
+  const sortedData = "i"
+
+  return {
+    props: {
+      authors: newData,
+    },
+  }
 }
