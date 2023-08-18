@@ -2,19 +2,21 @@ import Student from "@/components/Student/Student"
 import styles from "./Authors.module.css"
 import Head from "next/head"
 import { useEffect, useState } from "react"
-import { getData, postUpdate } from "@/contentful/contentful"
+import { client, getData, postUpdate } from "@/contentful/contentful"
 
-const Authors = () => {
-  const [data, setData] = useState([]);
+const Authors = ({data}) => {
+  /*const [data, setData] = useState([]);
   const [upd, setUpd] = useState([]);
 
   useEffect(() => {
-    getData().then((response) => setData(response))
+    getData("rubric_1").then((response) => setData(response))
     postUpdate().then((response) => setUpd(response))
     console.log("data", data)
     console.log("upd", upd)
     console.log("obj", Object.assign({}, [{date:"18.08.2023", name:"Gega", text:"Очень интересно dadada"}, ...data[0].comments]))
-  }, []);
+  }, []);*/
+
+  console.log(data)
 
   return (
     <>
@@ -41,3 +43,19 @@ const Authors = () => {
 }
 
 export default Authors
+
+
+
+export async function getStaticProps() {
+  //const data = getData("rubric_1")
+  
+  const data = await client.getEntries({
+    content_type: "rubric_1",
+  })
+
+  return {
+    props: {
+      data,
+    },
+  }
+}

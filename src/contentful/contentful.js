@@ -19,15 +19,15 @@ const options = {
 }
 
 
-const client = createClient({
+export const client = createClient({
   space: "flmyowsuuy7q",
   accessToken: "ZsFzT6y_SOy0dSmuR9Sso9y009ay9QuesCjYPnOCQAA",
   environment: "master"
 })
 
-export const getData = async () => {
+export const getData = async (type) => {
   const res = await client.getEntries({
-    content_type: "rubric_1",
+    content_type: type,
   })
 
   const sortedData = res.items.map(item => {
