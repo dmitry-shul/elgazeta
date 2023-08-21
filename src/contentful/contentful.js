@@ -3,7 +3,32 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { renderToStaticMarkup } from 'react-dom/server'
 
 
-const options = {
+export const client = createClient({
+  space: "flmyowsuuy7q",
+  accessToken: "ZsFzT6y_SOy0dSmuR9Sso9y009ay9QuesCjYPnOCQAA",
+  environment: "master"
+})
+
+
+const contentful = require("contentful-management")
+
+export const connect = async () => {
+  let client = await contentful.createClient({
+    accessToken: "CFPAT-GTf4BKwM1wgBQfw6gHBK3WMW4xcAjAZrLGqRg0-weN4"
+  })
+  let space = await client.getSpace("flmyowsuuy7q")
+  return await space.getEnvironment("master")
+}
+
+
+export const getData = async (type) => {
+  return await client.getEntries({
+    content_type: type,
+  })
+}
+
+
+export const options = {
   renderNode: {
     'embedded-asset-block': (node) => {
       const file = node.data.target.fields.file
@@ -19,13 +44,14 @@ const options = {
 }
 
 
-export const client = createClient({
-  space: "flmyowsuuy7q",
-  accessToken: "ZsFzT6y_SOy0dSmuR9Sso9y009ay9QuesCjYPnOCQAA",
-  environment: "master"
-})
 
-export const getData = async (type) => {
+
+
+
+
+
+
+/*export const getData = async (type) => {
   const res = await client.getEntries({
     content_type: type,
   })
@@ -45,18 +71,10 @@ export const getData = async (type) => {
     }
   })
   return sortedData;
-}
+}*/
 
 
-const contentful = require("contentful-management")
 
-const connect = async () => {
-  let client = await contentful.createClient({
-    accessToken: "CFPAT-GTf4BKwM1wgBQfw6gHBK3WMW4xcAjAZrLGqRg0-weN4"
-  })
-  let space = await client.getSpace("flmyowsuuy7q")
-  return await space.getEnvironment("master")
-}
 
 export const postUpdate = async () => {
   let env = await connect()

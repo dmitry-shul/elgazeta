@@ -1,14 +1,15 @@
 import { useRouter } from "next/router"
 import styles from "./Rubric.module.css"
 import Head from "next/head"
-import { client } from "@/contentful/contentful"
+import { client, getData, options } from "@/contentful/contentful"
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { renderToStaticMarkup } from 'react-dom/server'
 
-const Rubric = ({posts}) => {
+const Rubric = ({data, posts}) => {
   const {query, push, asPath} = useRouter()
   const title = getTitle(query)
 
+  console.log(data)
   console.log(posts)
 
   return (
@@ -64,14 +65,6 @@ const Post = ({post, ...props}) => {
 
 
 
-const getTitle = (query) => {
-  let a = query?.rubric?.split("-").join(" ")
-  let b = a[0].toUpperCase() + a.slice(1)
-  return b;
-}
-
-
-
 export async function getStaticPaths() {
   return {
     paths: [
@@ -105,24 +98,7 @@ export async function getStaticProps(context) {
 
   const rubric = rubricsArr.find(i => i[0] === params.rubric)
 
-  const data = await client.getEntries({
-    content_type: rubric[1],
-  })
-
-  const options = {
-    renderNode: {
-      'embedded-asset-block': (node) => {
-        const file = node.data.target.fields.file
-        const jsx = (
-          <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", margin: "40px 0"}}>
-            <img src={file.url} alt="img" width="60%" height={file.datails?.image.height} />
-            <div style={{marginTop: "20px"}}>{node.data.target.fields.description}</div>
-          </div>
-        )
-        return renderToStaticMarkup(jsx)
-      }
-    }
-  }
+  const data = await getData(rubric[1])
 
   const newData = data.items.map(item => {
     return {
@@ -145,10 +121,12 @@ export async function getStaticProps(context) {
 
   return {
     props: {
+      data: data,
       posts: sortedData,
     },
   }
 }
+
 
 
 const rubricsArr = [
@@ -159,3 +137,11 @@ const rubricsArr = [
   ["в-мире-профессий", "rubric_5"],
   ["блокнот", "rubric_6"]
 ]
+
+
+
+const getTitle = (query) => {
+  let a = query?.rubric?.split("-").join(" ")
+  let b = a[0].toUpperCase() + a.slice(1)
+  return b;
+}
