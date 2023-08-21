@@ -65,12 +65,15 @@
   font-size: 16px;
 }
 
-
 .styleTest1 p,
 .styleTest1 ol,
 .styleTest1 div,
 .styleTest1 blockquote {
-  margin: 0;
+  margin: 0 !important;
+}
+
+.styleTest1 {
+  margin: 30px 0;
 }
 
 /*-----------------------------------------------------*/

@@ -51,9 +51,7 @@ const Post = ({post, ...props}) => {
 
         <h4>{post.title}</h4>
 
-        <p>
-          <div className={styles.styleTest1} dangerouslySetInnerHTML={{__html: post.previewText}} />
-        </p>
+        <p className={styles.styleTest1} dangerouslySetInnerHTML={{__html: post.previewText}} />
 
         <div className={styles.views_comments}>
           <div>Комментариев: {post.comments.length}</div>
@@ -130,7 +128,7 @@ export async function getStaticProps(context) {
     return {
       ...item.fields,
       text: documentToHtmlString(item?.fields?.text, options),
-      previewText: `${documentToHtmlString(item?.fields?.text).split("").slice(0, 180).join("")}...`,
+      previewText: `${documentToHtmlString(item?.fields?.text).split("").slice(0, 260).join("")}...`,
       id: item.sys?.id,
       date: item.fields.date.split("-").reverse().join("."),
       dateNum: item.fields.date.split("-").reverse()[2]*10000 + item.fields.date.split("-").reverse()[1]*100 + item.fields.date.split("-").reverse()[0],
