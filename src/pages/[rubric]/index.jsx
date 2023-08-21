@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import styles from "./Rubric.module.css"
 import Head from "next/head"
-import { client, getData, options } from "@/contentful/contentful"
+import { client, getAllPosts, options } from "@/contentful/contentful"
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { renderToStaticMarkup } from 'react-dom/server'
 
@@ -98,7 +98,7 @@ export async function getStaticProps(context) {
 
   const rubric = rubricsArr.find(i => i[0] === params.rubric)
 
-  const data = await getData(rubric[1])
+  const data = await getAllPosts(rubric[1])
 
   const newData = data.items.map(item => {
     return {

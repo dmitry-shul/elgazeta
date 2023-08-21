@@ -21,10 +21,17 @@ export const connect = async () => {
 }
 
 
-export const getData = async (type) => {
+export const getAllPosts = async (type) => {
   return await client.getEntries({
     content_type: type,
   })
+}
+
+
+
+export const getPost = async (id) => {
+  let env = await connect()
+  return await env.getEntry(id)
 }
 
 
@@ -76,7 +83,7 @@ export const options = {
 
 
 
-export const postUpdate = async () => {
+/*export const postUpdate = async () => {
   let env = await connect()
   let res = await env.getEntry("1cf4GogGdGxkcdTJP7hKbt")
   //console.log("ggg", ggg)
@@ -93,7 +100,7 @@ export const postUpdate = async () => {
   //ggg.fields.comments["en-US"] = {...ggg.fields.comments["en-US"], "ffr34r3f": "tt235235r3t"}
   //ggg.update()
   return res
-}
+}*/
 
 
 

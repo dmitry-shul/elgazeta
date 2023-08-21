@@ -1,6 +1,7 @@
 import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
+import { getAllPosts, getPost } from "@/contentful/contentful"
 
 const Post = () => {
   const {query} = useRouter()
@@ -61,6 +62,42 @@ const Post = () => {
 }
 
 export default Post
+
+
+
+export async function getStaticPaths() {
+  const data_1 = await getAllPosts("rubric_1")
+  const data_2 = await getAllPosts("rubric_2")
+  /*const data_3 = await getAllPosts("rubric_3")
+  const data_4 = await getAllPosts("rubric_4")
+  const data_5 = await getAllPosts("rubric_5")
+  const data_6 = await getAllPosts("rubric_6")*/
+
+  const data = await [...data_1.items, ...data_2.items]
+
+  return {
+    paths: data.map(dt => ({
+      params: {
+        id: dt.sys.id,
+      },
+    })),
+    fallback: "blocking"
+  }
+}
+
+
+
+export async function getStaticProps(context) {
+  const {params} = context
+  
+  const post = await getPost(params.id)
+
+  return {
+    props: {
+      post,
+    },
+  }
+}
 
 
 
