@@ -23,10 +23,11 @@ const Rubric = ({data, posts}) => {
           <h1>{title}</h1>
 
           <div className={styles.postList}>
-            {
-              posts?.map(post => 
-                <Post post={post} key={post.id} onClick={() => push(`${asPath}/${post.id}`)} />
-              )
+            { posts.length === 0
+              ? <div style={{width: "100%", fontSize: "22px", display: "flex", justifyContent: "center"}}>Записей нет</div>
+              : posts?.map(post => 
+                  <Post post={post} key={post.id} onClick={() => push(`${asPath}/${post.id}`)} />
+                )
             }
           </div>
         </div>
