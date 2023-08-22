@@ -9,7 +9,7 @@ const Rubric = ({data, posts}) => {
   const {query, push, asPath} = useRouter()
   const title = getTitle(query)
 
-  console.log(data)
+  //console.log(data)
   //console.log(posts)
 
   return (
@@ -101,7 +101,7 @@ export async function getStaticProps(context) {
 
   const rubric = rubricsArr.find(i => i[0] === params.rubric)
 
-  const data = await getAllPosts(rubric[1], 0)
+  const data = await getAllPosts(rubric[1])
 
   const newData = data.items.map(item => {
     return {

@@ -21,11 +21,9 @@ export const connect = async () => {
 }
 
 
-export const getAllPosts = async (type, skip) => {
+export const getAllPosts = async (type) => {
   return await client.getEntries({
     content_type: type,
-    limit: 10,
-    skip,
   })
 }
 
