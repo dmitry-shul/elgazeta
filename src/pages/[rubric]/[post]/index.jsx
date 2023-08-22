@@ -2,12 +2,13 @@ import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
 import { getAllPosts, getPost } from "@/contentful/contentful"
+import { rubricsArr } from ".."
 
-const Post = () => {
+const Post = ({post}) => {
   const {query} = useRouter()
   const {postTitle, rubricTitle} = getTitle(query)
 
-  //console.log(query, postTitle, rubricTitle)
+  console.log(post)
 
   return (
     <>
@@ -78,7 +79,12 @@ export async function getStaticPaths() {
   return {
     paths: data.map(dt => ({
       params: {
-        id: dt.sys.id,
+        post: dt.sys.id,
+      },
+    })),
+    paths: rubricsArr.map(arr => ({
+      params: {
+        rubric: arr[0],
       },
     })),
     fallback: "blocking"

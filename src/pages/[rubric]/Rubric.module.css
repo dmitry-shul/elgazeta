@@ -73,7 +73,9 @@
 }
 
 .styleTest1 {
-  margin: 30px 0;
+  margin: 20px 0;
+  font-size: 20px;
+  text-align: justify;
 }
 
 /*-----------------------------------------------------*/

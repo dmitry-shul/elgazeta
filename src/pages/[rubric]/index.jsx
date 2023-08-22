@@ -25,7 +25,7 @@ const Rubric = ({data, posts}) => {
           <div className={styles.postList}>
             {
               posts?.map(post => 
-                <Post post={post} key={post.id} onClick={() => push(`${asPath}/${post.title.toLowerCase().split(" ").join("-")}`)} />
+                <Post post={post} key={post.id} onClick={() => push(`${asPath}/${post.id}`)} />
               )
             }
           </div>
@@ -52,7 +52,9 @@ const Post = ({post, ...props}) => {
 
         <h4>{post.title}</h4>
 
-        <p className={styles.styleTest1} dangerouslySetInnerHTML={{__html: post.previewText}} />
+        {/*<div className={styles.styleTest1} dangerouslySetInnerHTML={{__html: post.previewText}} />*/}
+
+        <div className={styles.styleTest1}>{post.previewText.replace(/<[^>]+>/g, '')}</div>
 
         <div className={styles.views_comments}>
           <div>Комментариев: {post.comments.length}</div>
@@ -129,7 +131,7 @@ export async function getStaticProps(context) {
 
 
 
-const rubricsArr = [
+export const rubricsArr = [
   ["в-центре-внимания", "rubric_1"],
   ["хобби-ты", "rubric_2"],
   ["день-в-календаре", "rubric_3"],
