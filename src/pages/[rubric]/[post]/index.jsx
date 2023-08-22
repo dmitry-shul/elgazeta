@@ -2,7 +2,7 @@ import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { getAllPosts, getPost, options } from "@/contentful/contentful"
+import { getPost, options } from "@/contentful/contentful"
 
 const Post = ({post}) => {
   const {query} = useRouter()
