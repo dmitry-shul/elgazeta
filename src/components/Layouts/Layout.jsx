@@ -1,8 +1,8 @@
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
-import { loadDefaultErrorComponents } from "next/dist/server/load-components";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import Loader from "../UI/Loader/Loader";
 
 const Layout = ({children}) => {
   const [loading, setLoading] = useState(false);
@@ -23,9 +23,10 @@ const Layout = ({children}) => {
       <Header />
       <div className="layout">
         {
-          !loading
-          ? <div className="loading">
-              Загрузка...
+          loading
+          ? <div className="loader">
+              <Loader />
+              <div style={{marginTop: "30px"}}>Загрузка...</div>
             </div>
           : <>{children}</>
         }

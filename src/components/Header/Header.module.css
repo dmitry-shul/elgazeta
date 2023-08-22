@@ -51,6 +51,7 @@
   padding: 10px 0;
   align-items: center;
   transition: 0.4s;
+  z-index: 100;
 }
 
 .menu__ul div {
