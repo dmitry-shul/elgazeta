@@ -77,3 +77,13 @@ button {
   margin: 0 auto;
   padding: 0 20px;
 }
+
+.loading {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+  font-size: 30px;
+}
