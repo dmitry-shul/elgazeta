@@ -1,10 +1,10 @@
 import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
-import { getAllPosts, getPost } from "@/contentful/contentful"
-import { rubricsArr } from ".."
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import { getAllPosts, getPost, options } from "@/contentful/contentful"
 
-const Post = () => {
+const Post = ({post}) => {
   const {query} = useRouter()
   const {postTitle, rubricTitle} = getTitle(query)
 
@@ -21,29 +21,33 @@ const Post = () => {
           <h1>{rubricTitle}</h1>
 
           <div className={styles.post}>
-            <h3>ЮНЫЕ ЖУРНАЛИСТЫ ПРИНЯЛИ УЧАСТИЕ В ПЕРВОМ НАЦИОНАЛЬНОМ ДЕТСКОМ МЕДИАФОРУМЕ</h3>
+            <h3>{post.title}</h3>
 
             <div className={styles.date_view}>
-              <div>16.08.2023</div>
-              <div>Просмотров: 26</div>
+              <div>{post.date}</div>
+              <div>Просмотров: {post.views}</div>
             </div>
 
-            <div className={styles.mainImage} style={{backgroundImage: "url(/assets/images/1rub.jpg)", width: "100%", height: "500px"}}></div>
+            <div className={styles.mainImage} style={{backgroundImage: `url(${post.image.url})`, width: "100%", height: post.image.height}}></div>
 
-            <div className={styles.richText}>{text}</div>
+            <div className={styles.richText} dangerouslySetInnerHTML={{__html: post.text}} />
 
-            <div style={{fontSize: "18px"}}>Автор: Ксения Лебедева</div>
+            <div style={{fontSize: "18px"}}>Автор: {post.author}</div>
 
             <div className={styles.comments}>
-              <h3 style={{fontSize: "22px"}}>Комментариев: 1</h3>
+              <h3 style={{fontSize: "22px"}}>Комментариев: {post.comments.length}</h3>
 
-              <div style={{margin: "16px 0", borderBottom: "1px solid #EAEAEA", padding: "0 0 16px 0"}}>
-                <div style={{display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "grey"}}>
-                  <div>Анна</div>
-                  <div>16.08.2023</div>
-                </div>
-                <div>Очень интересно</div>
-              </div>
+              {
+                post.comments.map(com => 
+                  <div key={com.name + com.text + com.date} style={{margin: "16px 0", borderBottom: "1px solid #EAEAEA", padding: "0 0 16px 0"}}>
+                    <div style={{display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "grey"}}>
+                      <div>{com.name}</div>
+                      <div>{com.date}</div>
+                    </div>
+                    <div>{com.text}</div>
+                  </div>
+                )
+              }
 
               <div style={{marginTop: "40px"}}>
                 <h4 style={{fontSize: "22px"}}>Оставить комментарий</h4>
@@ -66,7 +70,32 @@ export default Post
 
 
 
+export async function getServerSideProps(context) {
+  const {params} = context
 
+  const post = await getPost(params.post)
+
+  const newData = {
+    id: post.sys.id,
+    title: post.fields.title,
+    views: post.fields.views,
+    author: post.fields.author,
+    comments: Object.values(post.fields.comments),
+    date: post.fields.date.split("-").reverse().join("."),
+    text: documentToHtmlString(post?.fields?.text, options),
+    image: {url: post.fields.image.fields.file.url, 
+        description: post.fields.image.fields.description, 
+        width: post.fields.image.fields.file.details.image.width, 
+        height: post.fields.image.fields.file.details.image.height
+      },
+  }
+ 
+  return { 
+    props: {
+      post: newData,
+    } 
+  }
+}
 
 
 
@@ -77,23 +106,6 @@ const getTitle = (query) => {
   let rubricTitle = c[0].toUpperCase() + c.slice(1)
   return {postTitle, rubricTitle};
 }
-
-
-const text = `На шее – разноцветные ланьярды с бейджами, в руках – блокноты с эмблемой в виде двух букв «М», а в глазах – задорный огонёк и жажда познания. Кто же эти молодые люди, замеченные в коридорах и аудиториях факультета журналистики БГУ? Около 70 школьников из разных регионов страны были приглашены на первый Национальный детский медиафорум и получили возможность ближе познакомиться с профессией журналиста.
-Открылся форум диалоговой площадкой с участием представителей Министерства образования и заместителя декана факультета журналистики БГУ. Спикеры не только ответили на вопросы будущих абитуриентов, но и предложили вместе порассуждать о развитии средств массовой информации.
-Как сделать качественный фоторепортаж? Как найти героя для журналистской публикации? Какими должны быть современные медиа для детей? Ответы на эти и многие другие вопросы участники форума смогли получить во время мастер-классов, которые провели преподаватели факультета журналистики.
-К примеру, очень интересной и полезной была лекция Игоря Александровича Королёва о верификации пользовательского фото- и видеоконтента. Мы узнали о том, как отличить настоящую фотографию от фейка, и познакомились с программами, которые могут в этом помочь.
-Фотография
-– Больше всего мне понравился мастер-класс «Телевизионный проект: от идеи до реализации», – поделился впечатлениями председатель Молодежного парламента г. Молодечно Даниил Радюк. – Я узнал много нового, например, что такое сценарный план и в чём его отличие от известного всем сценария. Помимо этого новшеством для меня была сценарная заявка. Нам рассказали о том, как она оформляется и из чего состоит.
-Форум запомнился и ярким музыкальным приветствием студентов, и экскурсией по факультету журналистики. Побывать в теле- и радиостудии и не попробовать прочесть текст с суфлера или записать свой голос на радио – это не для  нас, самых талантливых и креативных юных журналистов!
-Фотография
-Даниил в радиостудии
-Первый национальный детский медиафорум прошел под девизом «3D: Думай. Действуй. Достигай» и  стал площадкой для общения  молодежи. Во время форсайт-сессии мы обменялись опытом, представили свои медиапроекты и пофантазировали на тему будущего журналистики.
-Этот вопрос затронули и спикеры «Зачетного» разговора – политический обозреватель ОНТ Игорь Тур и гендиректор Агентства «Минск-Новости», председатель Белорусского союза журналистов Андрей Кривошеев. 
-Фотография
-"Зачетный" разговор с Игорем Туром и Андреем Кривошеевым
-– Журналистика всегда будет актуальной, – отметил Андрей Евгеньевич. – Всегда будут люди, которые  будут собирать, анализировать и транслировать данные, формировать смыслы.`
-
 
 
 

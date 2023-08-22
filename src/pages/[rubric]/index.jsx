@@ -9,8 +9,8 @@ const Rubric = ({data, posts}) => {
   const {query, push, asPath} = useRouter()
   const title = getTitle(query)
 
-  console.log(data)
-  console.log(posts)
+  //console.log(data)
+  //console.log(posts)
 
   return (
     <>

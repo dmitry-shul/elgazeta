@@ -28,11 +28,15 @@ export const getAllPosts = async (type) => {
 }
 
 
-
 export const getPost = async (id) => {
+  return await client.getEntry(id)
+}
+
+
+/*export const getPost = async (id) => {
   let env = await connect()
   return await env.getEntry(id)
-}
+}*/
 
 
 export const options = {
@@ -41,7 +45,7 @@ export const options = {
       const file = node.data.target.fields.file
       const jsx = (
         <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", margin: "40px 0"}}>
-          <img src={file.url} alt="img" width="60%" height={file.datails?.image.height} />
+          <img src={file.url} alt="img" width="80%" height={file.datails?.image.height} />
           <div style={{marginTop: "20px"}}>{node.data.target.fields.description}</div>
         </div>
       )
