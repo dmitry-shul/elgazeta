@@ -10,7 +10,7 @@ const Rubric = ({data, posts}) => {
   const title = getTitle(query)
 
   //console.log(data)
-  //console.log(posts)
+  console.log(posts)
 
   return (
     <>
