@@ -13,7 +13,7 @@ const Post = ({post}) => {
   return (
     <>
       <Head>
-        <title>{postTitle} - Маладзік</title>
+        <title>{post.title.slice(0, 1) + post.title.toLowerCase().slice(1)} - Маладзік</title>
       </Head>
 
       <div className="container">
@@ -74,6 +74,12 @@ export async function getServerSideProps(context) {
   const {params} = context
 
   const post = await getPost(params.post)
+
+  if (post === "error") {
+    return {
+      notFound: true,
+    }
+  }
 
   const newData = {
     id: post.sys.id,

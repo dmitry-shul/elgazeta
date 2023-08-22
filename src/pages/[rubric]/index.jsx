@@ -25,7 +25,7 @@ const Rubric = ({data, posts}) => {
           <div className={styles.postList}>
             { posts.length === 0
               ? <div style={{width: "100%", fontSize: "22px", display: "flex", justifyContent: "center"}}>Записей нет</div>
-              : posts?.map(post => 
+              : posts?.map((post, i) => 
                   <Post post={post} key={post.id} onClick={() => push(`${asPath}/${post.id}`)} />
                 )
             }
@@ -103,6 +103,12 @@ export async function getStaticProps(context) {
 
   const data = await getAllPosts(rubric[1])
 
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+
   const newData = data.items.map(item => {
     return {
       ...item.fields,
@@ -124,7 +130,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      data: data,
+      data,
       posts: sortedData,
     },
   }

@@ -24,12 +24,17 @@ export const connect = async () => {
 export const getAllPosts = async (type) => {
   return await client.getEntries({
     content_type: type,
+    limit: 1000,
   })
 }
 
 
 export const getPost = async (id) => {
-  return await client.getEntry(id)
+  try {
+    return await client.getEntry(id)
+  } catch (error) {
+    return "error"
+  }
 }
 
 
