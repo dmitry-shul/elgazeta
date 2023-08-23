@@ -2,7 +2,7 @@ import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { getPost, options, updatePost } from "@/contentful/contentful"
+import { connect, getPost, options, updatePost } from "@/contentful/contentful"
 import { useEffect, useState } from "react";
 
 const Post = ({post}) => {
@@ -58,10 +58,14 @@ const Comments = ({post}) => {
   }, [])
 
   const getUpdatePost = async (id) => {
-    const res = await updatePost(id)
-    setUpdPost(res)
-    //res.fields.views["en-US"] = 24; 
-    //res.update();
+    const env = await connect()
+    const res = await env.getEntry(id)
+    //const res = await updatePost(id)
+    //setUpdPost(res)
+    //res.fields.views["en-US"] = 36; 
+    //await res.update();
+    //await res.publish();
+    console.log(res)
     console.log(res.fields.views["en-US"])
   }
   
