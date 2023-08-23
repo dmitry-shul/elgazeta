@@ -38,10 +38,10 @@ export const getPost = async (id) => {
 }
 
 
-/*export const getPost = async (id) => {
-  let env = await connect()
+export const updatePost = async (id) => {
+  const env = await connect()
   return await env.getEntry(id)
-}*/
+}
 
 
 export const options = {
@@ -58,6 +58,11 @@ export const options = {
     }
   }
 }
+
+
+
+
+
 
 
 

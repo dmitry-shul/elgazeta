@@ -2,7 +2,8 @@ import Head from "next/head"
 import styles from "./Post.module.css"
 import { useRouter } from "next/router"
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { getPost, options } from "@/contentful/contentful"
+import { getPost, options, updatePost } from "@/contentful/contentful"
+import { useEffect, useState } from "react";
 
 const Post = ({post}) => {
   const {query} = useRouter()
@@ -34,30 +35,7 @@ const Post = ({post}) => {
 
             <div style={{fontSize: "18px"}}>Автор: {post.author}</div>
 
-            <div className={styles.comments}>
-              <h3 style={{fontSize: "22px"}}>Комментариев: {post.comments.length}</h3>
-
-              {
-                post.comments.map(com => 
-                  <div key={com.name + com.text + com.date} style={{margin: "16px 0", borderBottom: "1px solid #EAEAEA", padding: "0 0 16px 0"}}>
-                    <div style={{display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "grey"}}>
-                      <div>{com.name}</div>
-                      <div>{com.date}</div>
-                    </div>
-                    <div>{com.text}</div>
-                  </div>
-                )
-              }
-
-              <div style={{marginTop: "40px"}}>
-                <h4 style={{fontSize: "22px"}}>Оставить комментарий</h4>
-                <div style={{margin: "20px 0", display: "flex", flexDirection: "column"}}>
-                  <input type="text" placeholder="Имя" className={styles.comments__name} />
-                  <textarea placeholder="Комментарий" className={styles.comments__text}></textarea>
-                </div>
-                <div className={styles.commentBtn}>Отправить</div>
-              </div>
-            </div>
+            <Comments post={post} />
 
           </div>
         </div>
@@ -67,6 +45,53 @@ const Post = ({post}) => {
 }
 
 export default Post
+
+
+
+const Comments = ({post}) => {
+  const [updPost, setUpdPost] = useState()
+  
+  console.log(updPost)
+
+  useEffect(() => {
+    getUpdatePost(post.id)
+  }, [])
+
+  const getUpdatePost = async (id) => {
+    const res = await updatePost(id)
+    setUpdPost(res)
+    //res.fields.views["en-US"] = 24; 
+    //res.update();
+    console.log(res.fields.views["en-US"])
+  }
+  
+  return (
+    <div className={styles.comments}>
+      <h3 style={{fontSize: "22px"}}>Комментариев: {post.comments.length}</h3>
+
+      {
+        post.comments.map(com => 
+          <div key={com.name + com.text + com.date} style={{margin: "16px 0", borderBottom: "1px solid #EAEAEA", padding: "0 0 16px 0"}}>
+            <div style={{display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "grey"}}>
+              <div>{com.name}</div>
+              <div>{com.date}</div>
+            </div>
+            <div>{com.text}</div>
+          </div>
+        )
+       }
+
+      <div style={{marginTop: "40px"}}>
+        <h4 style={{fontSize: "22px"}}>Оставить комментарий</h4>
+        <div style={{margin: "20px 0", display: "flex", flexDirection: "column"}}>
+          <input type="text" placeholder="Имя" className={styles.comments__name} />
+          <textarea placeholder="Комментарий" className={styles.comments__text}></textarea>
+          </div>
+        <div className={styles.commentBtn}>Отправить</div>
+      </div>
+    </div>
+  )
+}
 
 
 
