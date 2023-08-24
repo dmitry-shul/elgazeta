@@ -50,8 +50,6 @@ export default Post
 
 const Comments = ({post}) => {
   const [env, setEnv] = useState()
-  
-  //console.log(updPost)
 
   useEffect(() => {
     incrementViews(post.id)
