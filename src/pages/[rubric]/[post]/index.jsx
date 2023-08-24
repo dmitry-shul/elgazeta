@@ -49,25 +49,22 @@ export default Post
 
 
 const Comments = ({post}) => {
-  const [updPost, setUpdPost] = useState()
+  const [env, setEnv] = useState()
   
   //console.log(updPost)
 
   useEffect(() => {
-    getUpdatePost(post.id)
+    incrementViews(post.id)
   }, [])
 
-  const getUpdatePost = async (id) => {
+  const incrementViews = async (id) => {
     const env = await connect()
+    setEnv(env)
     const res = await env.getEntry(id)
-    console.log(env)
-    //const res = await updatePost(id)
-    //setUpdPost(res)
-    //res.fields.views["en-US"] = 222; 
-    //res.update();
-    //res.publish();
-    //console.log(res)
-    //console.log(res.fields.views["en-US"])
+    res.fields.views["en-US"] = res.fields.views["en-US"] + 1;
+    await res.update();
+    let res2 = await env.getEntry(id)
+    await res2.publish();
   }
   
   return (
