@@ -27,6 +27,10 @@
   margin: 20px 0;
 }
 
+.mainImage {
+  background-size: cover;
+}
+
 .richText {
   font-size: 18px;
   margin: 20px 0 10px 0;

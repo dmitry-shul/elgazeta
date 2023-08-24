@@ -70,6 +70,10 @@
   padding: 6px 0;
 }
 
+.closeBtn {
+  cursor: pointer;
+}
+
 .ul {
   display: flex;
   height: 100%;

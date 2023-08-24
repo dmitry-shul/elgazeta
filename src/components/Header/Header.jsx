@@ -29,7 +29,7 @@ const Header = () => {
       </div>
 
       <ul style={isOpenMenu ? {right: "0"} : {}} className={styles.menu__ul}>
-        <div onClick={() => setIsOpenMenu(false)}>&#10006;</div>
+        <div className={styles.closeBtn} onClick={() => setIsOpenMenu(false)}>&#10006;</div>
         <Links onClick={() => setIsOpenMenu(false)} />
       </ul>
     </>

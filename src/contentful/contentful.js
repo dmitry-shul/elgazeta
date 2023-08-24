@@ -50,7 +50,7 @@ export const options = {
       const file = node.data.target.fields.file
       const jsx = (
         <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", margin: "40px 0"}}>
-          <img src={file.url} alt="img" width="80%" height={file.datails?.image.height} />
+          <img style={{backgroundSize: "cover"}} src={file.url} alt="img" width={file.details.image.width < file.details.image.height ? "68%" : "100%"} height={file.datails?.image.height} />
           <div style={{marginTop: "20px"}}>{node.data.target.fields.description}</div>
         </div>
       )

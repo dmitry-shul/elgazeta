@@ -28,8 +28,8 @@ const Post = ({post}) => {
               <div>{post.date}</div>
               <div>Просмотров: {post.views}</div>
             </div>
-
-            <div className={styles.mainImage} style={{backgroundImage: `url(${post.image.url})`, width: "100%", height: post.image.height}}></div>
+            
+            <div className={styles.mainImage} style={{backgroundImage: `url(${post.image.url})`, width: "100%", aspectRatio: post.image.width / post.image.height}}></div>
 
             <div className={styles.richText} dangerouslySetInnerHTML={{__html: post.text}} />
 
@@ -49,7 +49,14 @@ export default Post
 
 
 const Comments = ({post}) => {
+  const [comName, setComName] = useState("")
+  const [comText, setComText] = useState("")
+  const [comments, setComments] = useState(post.comments)
+  const [errorName, setErrorName] = useState(false)
+  const [errorText, setErrorText] = useState(false)
   const [env, setEnv] = useState()
+
+  //console.log(comName, comText)
 
   useEffect(() => {
     incrementViews(post.id)
@@ -64,30 +71,54 @@ const Comments = ({post}) => {
     let res2 = await env.getEntry(id)
     await res2.publish();
   }
+
+  const updateComments = async (id) => {
+    comName === "" ? setErrorName(true) : setErrorName(false)
+    comText === "" ? setErrorText(true) : setErrorText(false)
+
+    if(comName !== "" && comText !== "") {
+      const date = new Date()
+      const newDate = date.getDate() + "." + ((date.getMonth() + 1) > 9 ? "" : "0") + (date.getMonth() + 1) + "." + date.getFullYear()
+      const newComment = {
+        date: newDate,
+        name: comName,
+        text: comText
+      }
+      setComments([newComment, ...comments])
+      const res = await env.getEntry(id)
+      res.fields.comments["en-US"] = [newComment, ...comments];
+      await res.update();
+      let res2 = await env.getEntry(id)
+      await res2.publish();
+      //console.log("done")
+    }
+  }
   
   return (
     <div className={styles.comments}>
       <h3 style={{fontSize: "22px"}}>Комментариев: {post.comments.length}</h3>
 
       {
-        post.comments.map(com => 
-          <div key={com.name + com.text + com.date} style={{margin: "16px 0", borderBottom: "1px solid #EAEAEA", padding: "0 0 16px 0"}}>
-            <div style={{display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "grey"}}>
-              <div>{com.name}</div>
-              <div>{com.date}</div>
+        comments.length === 0
+        ? ""
+        : comments.map(com => 
+            <div key={com.name + com.text + com.date} style={{margin: "16px 0", borderBottom: "1px solid #EAEAEA", padding: "0 0 16px 0"}}>
+              <div style={{display: "flex", justifyContent: "space-between", marginBottom: "6px", color: "grey"}}>
+                <div>{com.name}</div>
+                <div>{com.date}</div>
+              </div>
+              <div>{com.text}</div>
             </div>
-            <div>{com.text}</div>
-          </div>
-        )
+          )
        }
 
       <div style={{marginTop: "40px"}}>
         <h4 style={{fontSize: "22px"}}>Оставить комментарий</h4>
         <div style={{margin: "20px 0", display: "flex", flexDirection: "column"}}>
-          <input type="text" placeholder="Имя" className={styles.comments__name} />
-          <textarea placeholder="Комментарий" className={styles.comments__text}></textarea>
+          <input style={errorName ? {border: "2px solid red"} : {}} onChange={e => setComName(e.target.value)} type="text" placeholder="Имя" className={styles.comments__name} />
+          <textarea style={errorText ? {border: "2px solid red"} : {}} onChange={e => setComText(e.target.value)} placeholder="Комментарий" className={styles.comments__text}></textarea>
           </div>
-        <div className={styles.commentBtn}>Отправить</div>
+        <div onClick={() => updateComments(post.id)} className={styles.commentBtn}>Отправить</div>
       </div>
     </div>
   )
@@ -106,12 +137,19 @@ export async function getServerSideProps(context) {
     }
   }
 
+  const sortComments = () => {
+    const commentsArray = Object.values(post.fields.comments)
+    const sortComments = commentsArray.map(com => [com, com.date.split(".")[2]*10000 + com.date.split(".")[1]*100 + com.date.split(".")[0]])
+    const sortedComments = sortComments.sort((a, b) => b[1] - a[1])
+    return sortedComments.map(com => com[0])
+  }
+
   const newData = {
     id: post.sys.id,
     title: post.fields.title,
     views: post.fields.views,
     author: post.fields.author,
-    comments: Object.values(post.fields.comments),
+    comments: sortComments(),
     date: post.fields.date.split("-").reverse().join("."),
     text: documentToHtmlString(post?.fields?.text, options),
     image: {url: post.fields.image.fields.file.url, 
