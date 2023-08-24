@@ -117,7 +117,7 @@ export async function getStaticProps(context) {
       id: item.sys?.id,
       date: item.fields.date.split("-").reverse().join("."),
       dateNum: item.fields.date.split("-").reverse()[2]*10000 + item.fields.date.split("-").reverse()[1]*100 + item.fields.date.split("-").reverse()[0],
-      comments: Object.values(item.fields.comments),
+      comments: item.fields.comments === undefined ? [] : Object.values(item.fields.comments),
       image: {url: item.fields.image.fields.file.url, 
         description: item.fields.image.fields.description, 
         width: item.fields.image.fields.file.details.image.width, 

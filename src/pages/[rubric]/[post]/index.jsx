@@ -86,11 +86,15 @@ const Comments = ({post}) => {
       }
       setComments([newComment, ...comments])
       const res = await env.getEntry(id)
-      res.fields.comments["en-US"] = [newComment, ...comments];
+
+      res.fields.comments === undefined
+      ? res.fields["comments"] = {'en-US': [newComment]}
+      : res.fields.comments["en-US"] = [newComment, ...comments]
+
       await res.update();
       let res2 = await env.getEntry(id)
       await res2.publish();
-      //console.log("done")
+      //console.log(res)
     }
   }
   
@@ -149,7 +153,7 @@ export async function getServerSideProps(context) {
     title: post.fields.title,
     views: post.fields.views,
     author: post.fields.author,
-    comments: sortComments(),
+    comments: post.fields.comments === undefined ? [] : sortComments(),
     date: post.fields.date.split("-").reverse().join("."),
     text: documentToHtmlString(post?.fields?.text, options),
     image: {url: post.fields.image.fields.file.url, 
