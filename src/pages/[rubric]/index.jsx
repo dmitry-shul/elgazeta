@@ -68,7 +68,7 @@ const Post = ({post, ...props}) => {
 
 
 
-export async function getStaticPaths() {
+/*export async function getStaticPaths() {
   return {
     paths: [
       {
@@ -92,11 +92,11 @@ export async function getStaticPaths() {
     ],
     fallback: false,
   }
-}
+}*/
 
 
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const {params} = context
 
   const rubric = rubricsArr.find(i => i[0] === params.rubric)
