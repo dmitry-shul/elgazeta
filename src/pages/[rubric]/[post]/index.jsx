@@ -85,6 +85,8 @@ const Comments = ({post}) => {
         text: comText
       }
       setComments([newComment, ...comments])
+      setComName("")
+      setComText("")
       const res = await env.getEntry(id)
 
       res.fields.comments === undefined
@@ -119,8 +121,21 @@ const Comments = ({post}) => {
       <div style={{marginTop: "40px"}}>
         <h4 style={{fontSize: "22px"}}>Оставить комментарий</h4>
         <div style={{margin: "20px 0", display: "flex", flexDirection: "column"}}>
-          <input style={errorName ? {border: "2px solid red"} : {}} onChange={e => setComName(e.target.value)} type="text" placeholder="Имя" className={styles.comments__name} />
-          <textarea style={errorText ? {border: "2px solid red"} : {}} onChange={e => setComText(e.target.value)} placeholder="Комментарий" className={styles.comments__text}></textarea>
+          <input 
+            value={comName} 
+            onChange={e => setComName(e.target.value)} 
+            style={errorName ? {border: "2px solid red"} : {}} 
+            type="text" 
+            placeholder="Имя" 
+            className={styles.comments__name} 
+          />
+          <textarea 
+            value={comText} 
+            onChange={e => setComText(e.target.value)} 
+            style={errorText ? {border: "2px solid red"} : {}} 
+            placeholder="Комментарий" 
+            className={styles.comments__text}
+          ></textarea>
           </div>
         <div onClick={() => updateComments(post.id)} className={styles.commentBtn}>Отправить</div>
       </div>
