@@ -4,8 +4,8 @@ import { renderToStaticMarkup } from 'react-dom/server'
 
 
 export const client = createClient({
-  space: process.env.REACT_APP_SPACE,
-  accessToken: process.env.REACT_APP_ACCESS_TOKEN,
+  space: "flmyowsuuy7q",
+  accessToken: "ZsFzT6y_SOy0dSmuR9Sso9y009ay9QuesCjYPnOCQAA",
   environment: "master"
 })
 
@@ -14,9 +14,9 @@ const contentful = require("contentful-management")
 
 export const connect = async () => {
   let client = await contentful.createClient({
-    accessToken: process.env.REACT_APP_ACCESS_TOKEN_MANAGEMENT
+    accessToken: "CFPAT-GTf4BKwM1wgBQfw6gHBK3WMW4xcAjAZrLGqRg0-weN4"
   })
-  let space = await client.getSpace(process.env.REACT_APP_SPACE)
+  let space = await client.getSpace("flmyowsuuy7q")
   return await space.getEnvironment("master")
 }
 
