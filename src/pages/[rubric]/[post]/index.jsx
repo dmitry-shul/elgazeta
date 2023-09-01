@@ -78,7 +78,7 @@ const Comments = ({post}) => {
 
     if(comName !== "" && comText !== "") {
       const date = new Date()
-      const newDate = date.getDate() + "." + ((date.getMonth() + 1) > 9 ? "" : "0") + (date.getMonth() + 1) + "." + date.getFullYear()
+      const newDate = (date.getDate() > 9 ? "" : "0") + date.getDate() + "." + ((date.getMonth() + 1) > 9 ? "" : "0") + (date.getMonth() + 1) + "." + date.getFullYear()
       const newComment = {
         date: newDate,
         name: comName,
