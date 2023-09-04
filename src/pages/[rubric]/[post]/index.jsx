@@ -33,7 +33,7 @@ const Post = ({post}) => {
 
             <div className={styles.richText} dangerouslySetInnerHTML={{__html: post.text}} />
 
-            <div style={{fontSize: "18px"}}>Автор: {post.author}</div>
+            {/*<div style={{fontSize: "18px"}}>Автор: {post.author}</div>*/}
 
             <Comments post={post} />
 
@@ -167,7 +167,7 @@ export async function getServerSideProps(context) {
     id: post.sys.id,
     title: post.fields.title,
     views: post.fields.views,
-    author: post.fields.author,
+    /*author: post.fields.author,*/
     comments: post.fields.comments === undefined ? [] : sortComments(),
     date: post.fields.date.split("-").reverse().join("."),
     text: documentToHtmlString(post?.fields?.text, options),
