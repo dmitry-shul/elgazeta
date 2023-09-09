@@ -34,7 +34,7 @@ export default Graduates
 
 
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const data = await client.getEntries({
     content_type: "graduates",
   })
