@@ -118,10 +118,10 @@ export async function getServerSideProps(context) {
       date: item.fields.date.split("-").reverse().join("."),
       dateNum: item.fields.date.split("-").reverse()[2]*10000 + item.fields.date.split("-").reverse()[1]*100 + item.fields.date.split("-").reverse()[0],
       comments: item.fields.comments === undefined ? [] : Object.values(item.fields.comments),
-      image: {url: item.fields.image.fields.file.url, 
-        description: item.fields.image.fields.description, 
-        width: item.fields.image.fields.file.details.image.width, 
-        height: item.fields.image.fields.file.details.image.height
+      image: {url: item.fields.image.fields ? item.fields.image.fields.file.url : "./assets/images/image_not_found.jpg",
+        //description: item.fields.image.fields.description || null, 
+        //width: item.fields.image.fields.file.details.image.width, 
+        //height: item.fields.image.fields.file.details.image.height
       },
     }
   })

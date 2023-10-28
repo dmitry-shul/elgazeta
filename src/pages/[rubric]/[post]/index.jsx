@@ -171,10 +171,10 @@ export async function getServerSideProps(context) {
     comments: post.fields.comments === undefined ? [] : sortComments(),
     date: post.fields.date.split("-").reverse().join("."),
     text: documentToHtmlString(post?.fields?.text, options),
-    image: {url: post.fields.image.fields.file.url, 
-        description: post.fields.image.fields.description, 
-        width: post.fields.image.fields.file.details.image.width, 
-        height: post.fields.image.fields.file.details.image.height
+    image: {url: post.fields.image.fields ? post.fields.image.fields.file.url : "/assets/images/image_not_found.jpg",
+        //description: post.fields.image.fields.description || null, 
+        width: post.fields.image.fields ? post.fields.image.fields.file.details.image.width : 884, 
+        height: post.fields.image.fields ? post.fields.image.fields.file.details.image.height : 772
       },
   }
  

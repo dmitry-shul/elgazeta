@@ -47,11 +47,21 @@ export const updatePost = async (id) => {
 export const options = {
   renderNode: {
     'embedded-asset-block': (node) => {
-      const file = node.data.target.fields.file
+      let img;
+      let description;
+      if (node.data.target.fields) {
+        const file = node.data.target.fields.file
+        img = <img style={{backgroundSize: "cover"}} src={file.url} alt="img" width={file.details.image.width < file.details.image.height ? "68%" : "100%"} height={file.datails?.image.height} /> 
+        description = <div style={{marginTop: "20px"}}>{node.data.target.fields.description}</div>
+      } else {
+        img = <img style={{backgroundSize: "cover"}} src="/assets/images/image_not_found.jpg" alt="img" width="100%" /*height="100%"*/ />
+        description = ""
+      }
+
       const jsx = (
         <div style={{width: "100%", display: "flex", flexDirection: "column", alignItems: "center", margin: "40px 0"}}>
-          <img style={{backgroundSize: "cover"}} src={file.url} alt="img" width={file.details.image.width < file.details.image.height ? "68%" : "100%"} height={file.datails?.image.height} />
-          <div style={{marginTop: "20px"}}>{node.data.target.fields.description}</div>
+          {img}
+          {description}
         </div>
       )
       return renderToStaticMarkup(jsx)

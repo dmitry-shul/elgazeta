@@ -5,7 +5,7 @@ import { client } from "@/contentful/contentful"
 
 const Authors = ({authors}) => {
 
-  //console.log(authors)
+  //console.log(data)
 
   return (
     <>
@@ -44,9 +44,9 @@ export async function getServerSideProps() {
       name: item.fields.name,
       description: item.fields.description,
       avatar: {
-        url: item.fields.avatar.fields.file.url,
-        width: item.fields.avatar.fields.file.details.image.width,
-        height: item.fields.avatar.fields.file.details.image.height,
+        url: item.fields.avatar.fields ? item.fields.avatar.fields.file.url : "./assets/images/image_not_found.jpg",
+        //width: item.fields.avatar.fields.file.details.image.width,
+        //height: item.fields.avatar.fields.file.details.image.height,
       }
     }
   })
