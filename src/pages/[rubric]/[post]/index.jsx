@@ -5,10 +5,11 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { connect, getPost, options, updatePost } from "@/contentful/contentful"
 import { useEffect, useState } from "react";
 
-const Post = ({post}) => {
+const Post = ({post, p}) => {
   const {query} = useRouter()
   const {postTitle, rubricTitle} = getTitle(query)
 
+  console.log(p)
   //console.log(post)
 
   return (
@@ -181,6 +182,7 @@ export async function getServerSideProps(context) {
   return { 
     props: {
       post: newData,
+      p: post,
     } 
   }
 }

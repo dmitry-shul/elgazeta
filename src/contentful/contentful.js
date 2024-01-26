@@ -65,6 +65,15 @@ export const options = {
         </div>
       )
       return renderToStaticMarkup(jsx)
+    },
+
+    'hr': (node) => {
+      let jsx = (
+          <div style={{height: "30px"}}>
+            <br></br>
+          </div>
+        )
+      return renderToStaticMarkup(jsx)
     }
   }
 }
@@ -77,6 +86,30 @@ export const options = {
 
 
 
+
+
+
+
+/*
+'paragraph': (node, children) => {
+      let jsx
+      if (node.content[0].value.length === 0) {
+        jsx = (
+          <div>
+            <br></br>
+          </div>
+        )
+      } else {
+        jsx = (
+          <div>
+            {node.content[0].value}
+            <br></br>
+          </div>
+        )
+      }
+      return renderToStaticMarkup(jsx)
+    }
+*/
 
 
 
