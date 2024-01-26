@@ -74,6 +74,28 @@ export const options = {
           </div>
         )
       return renderToStaticMarkup(jsx)
+    },
+
+    'hyperlink': (node) => {
+      const text = node.content[0].value
+      const url = node.data.uri
+      let jsx
+      if(text.slice(0, 1) === "*") {
+        jsx = (
+          <div style={{}}>
+            <iframe src={url} width="100%" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+            <br></br>
+          </div>
+        )
+      } else {
+        jsx = (
+          <div>
+            <a href={url} target="_blank" style={{textDecoration: "underline", fontWeight: 'bold'}} >{text}</a>
+            <br></br>
+          </div>
+        )
+      }
+      return renderToStaticMarkup(jsx)
     }
   }
 }
@@ -89,6 +111,36 @@ export const options = {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+'hyperlink': (node) => {
+      const text = node.content[0].value
+      const url = node.data.url
+      let jsx
+
+      if(text.slice(0, 1).toLowerCase() === "v" || text.slice(0, 1).toLowerCase() === "в") {
+        jsx = (
+          <div style={{height: "30px", background: "#456456"}}>
+            <br></br>
+          </div>
+        )
+      }
+      return renderToStaticMarkup(jsx)
+    }
+*/  
 
 /*
 'paragraph': (node, children) => {
