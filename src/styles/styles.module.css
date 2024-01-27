@@ -176,3 +176,17 @@
     height: 200px !important;
   }
 }
+
+/*-----------------------------------------------------*/
+
+.iframeYoutube {
+  height: 540px;
+  border: 1px solid #d0d0d0;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 600px) {
+	.iframeYoutube {
+    height: 400px;
+  }
+}

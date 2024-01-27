@@ -1,6 +1,7 @@
 import { createClient } from "contentful"
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { renderToStaticMarkup } from 'react-dom/server'
+import styles from "@/styles/styles.module.css"
 
 
 export const client = createClient({
@@ -82,8 +83,8 @@ export const options = {
       let jsx
       if(text.slice(0, 1) === "*") {
         jsx = (
-          <div style={{}}>
-            <iframe src={url} width="100%" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+          <div>
+            <iframe src={url} width="100%" className={styles.iframeYoutube} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
             <br></br>
           </div>
         )
