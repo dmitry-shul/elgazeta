@@ -84,7 +84,7 @@ export const options = {
       if(text.slice(0, 1) === "*") {
         jsx = (
           <div>
-            <iframe src={url} width="100%" className={styles.iframeYoutube} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+            <iframe src={url} width="100%" className={styles.iframeYoutube} frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" webkitallowfullscreen="true" mozallowfullscreen="true" oallowfullscreen="true" msallowfullscreen="true" />
             <br></br>
           </div>
         )
