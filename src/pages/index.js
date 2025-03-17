@@ -80,7 +80,7 @@ const rubricsArray = [
   {id: 3, link: '/assets/images/3rub.webp', width: "374px", height: "336px", text: "ДЕНЬ В КАЛЕНДАРЕ", positionX: "center", positionY: "center"},
   {id: 2, link: '/assets/images/newrub2.jpg', width: "362px", height: "330px", text: "ХОББИ-ТЫ", positionX: "center", positionY: "top"},
   {id: 4, link: '/assets/images/4rub.jpg', width: "570px", height: "330px", text: "РОВЕСНИК", positionX: "center", positionY: "top"},
-  {id: 6, link: '/assets/images/newrub1.jpg', width: "564px", height: "312px", text: "ИНТЕРВЬЮ", positionX: "center", positionY: "center"},
+  {id: 6, link: '/assets/images/newrub1.jpg', width: "564px", height: "312px", text: "30 ФОТОИСТОРИЙ", positionX: "center", positionY: "center"},
   {id: 5, link: '/assets/images/6rub.jpg', width: "372px", height: "312px", text: "БЛОКНОТ", positionX: "center", positionY: "top"},
   {id: 7, link: '/assets/images/7rub.jpeg', width: "100%", height: "336px", text: "ПОБЕДА В ЛИЦАХ", positionX: "center", positionX: "center"},
 ]
