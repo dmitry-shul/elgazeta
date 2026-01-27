@@ -139,19 +139,20 @@ export async function getServerSideProps(context) {
 
 
 export const rubricsArr = [
-  ["в-центре-внимания", "rubric_1"],
-  ["хобби-ты", "rubric_2"],
-  ["день-в-календаре", "rubric_3"],
+  ["в_центре_внимания", "rubric_1"],
+  ["хобби_ты", "rubric_2"],
+  ["день_в_календаре", "rubric_3"],
   ["ровесник", "rubric_4"],
   ["блокнот", "rubric_5"],
-  ["30-фотоисторий", "rubric_6"],
-  ["победа-в-лицах", "rubric_7"]
+  ["30_фотоисторий", "rubric_6"],
+  ["победа_в_лицах", "rubric_7"],
+  ["жанчына_-_крынiца_натхнення", "rubric_8"]
 ]
 
 
 
 const getTitle = (query) => {
-  let a = query?.rubric?.split("-").join(" ")
+  let a = query?.rubric?.split("_").join(" ")
   let b = a[0].toUpperCase() + a.slice(1)
   return b;
 }
