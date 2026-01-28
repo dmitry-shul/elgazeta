@@ -191,7 +191,7 @@ export async function getServerSideProps(context) {
 const getTitle = (query) => {
   let a = query?.post?.split("-").join(" ")
   let postTitle = a[0].toUpperCase() + a.slice(1)
-  let c = query?.rubric?.split("-").join(" ")
+  let c = query?.rubric?.split("_").join(" ")
   let rubricTitle = c[0].toUpperCase() + c.slice(1)
   return {postTitle, rubricTitle};
 }
