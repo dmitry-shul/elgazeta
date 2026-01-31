@@ -140,7 +140,7 @@ export async function getServerSideProps(context) {
 
 export const rubricsArr = [
   ["в_центре_внимания", "rubric_1"],
-  ["хобби_ты", "rubric_2"],
+  ["хобби-ты", "rubric_2"],
   ["день_в_календаре", "rubric_3"],
   ["ровесник", "rubric_4"],
   ["блокнот", "rubric_5"],
